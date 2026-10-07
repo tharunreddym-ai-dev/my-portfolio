@@ -5,7 +5,11 @@ export interface ChatMessage {
   content: string;
 }
 
-const MAX_MESSAGES_PER_DAY = 15;
+const MAX_MESSAGES_PER_DAY = 15; // per visitor (browser) per 24h
+// Hard ceiling per IP. Many people in India share one IP (mobile data, college or
+// office Wi-Fi), so the per-visitor limit is keyed by IP + browser id, while this
+// higher IP ceiling stops someone from dodging the limit by faking new browser ids.
+const MAX_MESSAGES_PER_IP_PER_DAY = 60;
 const ONE_DAY_MS = 24 * 60 * 60 * 1000;
 const MAX_MESSAGE_LENGTH = 2000; // characters, per message
 const MAX_HISTORY_LENGTH = 50;   // messages per request, before trimming to last 8
@@ -120,30 +124,28 @@ export async function handleChatRequest(req: any, res: any) {
     // one line of JS, which would defeat this check regardless of what backs it.
     // This is still a best-effort, in-memory limiter — see api/_rateLimit.ts for
     // the honest caveats (it can reset on a cold start).
-    const limiterKey = `chat:${getClientIp(req)}`;
-    const { count: currentCount, msUntilReset } = peekUsage(limiterKey, ONE_DAY_MS);
-    const resetHoursLeft = Math.max(1, Math.ceil((msUntilReset || ONE_DAY_MS) / (60 * 60 * 1000)));
+    const ip = getClientIp(req);
+    const rawDeviceId = typeof body.deviceId === 'string' ? body.deviceId : '';
+    const deviceId = rawDeviceId.replace(/[^a-zA-Z0-9_-]/g, '').slice(0, 64) || 'no-device';
+    const ipKey = `chat-ip:${ip}`;
+    const deviceKey = `chat-dev:${ip}:${deviceId}`;
 
-    if (currentCount >= MAX_MESSAGES_PER_DAY) {
-      // Daily AI quota is used up. No Groq/Gemini calls happen past this point —
-      // only a fixed, zero-cost keyword match. If the message doesn't match a known
-      // topic, give the standard quota-exceeded message instead.
-      const keywordReply = matchKeywordReply(latestUserMessage);
+    const ipUsage = peekUsage(ipKey, ONE_DAY_MS);
+    const devUsage = peekUsage(deviceKey, ONE_DAY_MS);
+    const limitHit =
+      devUsage.count >= MAX_MESSAGES_PER_DAY || ipUsage.count >= MAX_MESSAGES_PER_IP_PER_DAY;
 
-      if (keywordReply) {
-        res.status(200).json({
-          reply: keywordReply,
-          messagesRemaining: 0,
-          totalLimit: MAX_MESSAGES_PER_DAY,
-          limitExceeded: true,
-        });
-        return;
-      }
-
-      res.status(429).json({
-        error: `Daily AI quota exceeded (${MAX_MESSAGES_PER_DAY}/${MAX_MESSAGES_PER_DAY}). Resets in ~${resetHoursLeft} hours. Try asking about his projects, skills, or how to get in touch — or reach Tharun directly via the Contact form or LinkedIn!`,
+    if (limitHit) {
+      // Daily AI quota is used up: no Groq/Gemini calls, just the free built-in
+      // answers, returned as a normal reply so the chat never looks broken.
+      const msUntilReset = Math.max(devUsage.msUntilReset, ipUsage.msUntilReset) || ONE_DAY_MS;
+      const resetHoursLeft = Math.max(1, Math.ceil(msUntilReset / (60 * 60 * 1000)));
+      res.status(200).json({
+        reply: getSmartFallbackReply(latestUserMessage),
+        messagesRemaining: 0,
+        totalLimit: MAX_MESSAGES_PER_DAY,
         limitExceeded: true,
-        remaining: 0,
+        resetHours: resetHoursLeft,
       });
       return;
     }
@@ -265,13 +267,23 @@ export async function handleChatRequest(req: any, res: any) {
     console.log(`[chat] answered via ${providerUsed}`);
 
     // Now that we're actually replying, spend one message from the daily quota.
-    const { count: newCount } = consumeUsage(limiterKey, ONE_DAY_MS);
-    const remaining = Math.max(0, MAX_MESSAGES_PER_DAY - newCount);
+    const ipAfter = consumeUsage(ipKey, ONE_DAY_MS);
+    const devAfter = consumeUsage(deviceKey, ONE_DAY_MS);
+    const remaining = Math.max(
+      0,
+      Math.min(
+        MAX_MESSAGES_PER_DAY - devAfter.count,
+        MAX_MESSAGES_PER_IP_PER_DAY - ipAfter.count
+      )
+    );
+    const resetHours = Math.max(1, Math.ceil(devAfter.msUntilReset / (60 * 60 * 1000)));
 
     res.status(200).json({
       reply: assistantReply,
       messagesRemaining: remaining,
       totalLimit: MAX_MESSAGES_PER_DAY,
+      limitExceeded: remaining === 0,
+      resetHours,
     });
   } catch (error: any) {
     console.error('Chat endpoint error:', error);

@@ -88,6 +88,23 @@ export function incrementChatUsage(): ChatUsageState {
   }
 }
 
+/**
+ * The server is the source of truth for the chat quota. After every reply we
+ * copy its numbers into localStorage so the "X / 15 left" badge always matches
+ * what the server will actually allow.
+ */
+export function syncChatUsageFromServer(remaining: number, resetHours?: number): ChatUsageState {
+  const now = Date.now();
+  try {
+    const safeRemaining = Math.max(0, Math.min(MAX_DAILY_CHAT_MESSAGES, Math.floor(remaining)));
+    const count = MAX_DAILY_CHAT_MESSAGES - safeRemaining;
+    const hours = typeof resetHours === 'number' && resetHours > 0 ? Math.min(24, resetHours) : 24;
+    const firstUsed = now - (CHAT_RESET_WINDOW_MS - hours * 60 * 60 * 1000);
+    localStorage.setItem(CHAT_USAGE_KEY, JSON.stringify({ count, firstUsed }));
+  } catch {}
+  return getChatUsage();
+}
+
 export function checkContactRateLimit(): { allowed: boolean; waitMinutes: number } {
   if (typeof window === 'undefined') return { allowed: true, waitMinutes: 0 };
   const now = Date.now();

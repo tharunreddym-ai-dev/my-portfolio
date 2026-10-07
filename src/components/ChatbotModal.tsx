@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Bot, X, Send, Sparkles, Clock, AlertTriangle, MessageSquare, RotateCcw, ShieldCheck } from 'lucide-react';
-import { getOrCreateDeviceId, getChatUsage, incrementChatUsage, ChatUsageState } from '../utils/deviceSession';
+import { getOrCreateDeviceId, getChatUsage, syncChatUsageFromServer, ChatUsageState } from '../utils/deviceSession';
 
 interface Message {
   role: 'user' | 'assistant';
@@ -18,7 +18,7 @@ function renderInline(line: string, keyBase: string) {
         {part.slice(2, -2)}
       </strong>
     ) : (
-      <React.Fragment key={`${keyBase}-${i}`}>{part.replace(/\*\*/g, '')}</React.Fragment>
+      <React.Fragment key={`${keyBase}-${i}`}>{part.replace(/\*\*/g, '').replace(/(^|\s)\*([^*\n]+)\*(?=\s|[.,!?]|$)/g, '$1$2').replace(/(^|\s)_([^_\n]+)_(?=\s|[.,!?]|$)/g, '$1$2')}</React.Fragment>
     )
   );
 }
@@ -116,8 +116,6 @@ export const ChatbotModal: React.FC<ChatbotModalProps> = ({ isOpen, onClose }) =
     const text = (textToSend || input).trim();
     if (!text || loading) return;
 
-    const wasAlreadyAtLimit = usage.isLimitReached;
-
     const userMsg: Message = {
       role: 'user',
       content: text,
@@ -130,11 +128,6 @@ export const ChatbotModal: React.FC<ChatbotModalProps> = ({ isOpen, onClose }) =
 
     try {
       const deviceId = getOrCreateDeviceId();
-      // Once the daily quota is used up, stop incrementing it further — these
-      // messages only get fixed keyword-matched replies, not real AI calls.
-      const updatedUsage = wasAlreadyAtLimit ? usage : incrementChatUsage();
-      setUsage(updatedUsage);
-
       const payload = {
         deviceId,
         messages: [...messages, userMsg].map((m) => ({
@@ -153,6 +146,11 @@ export const ChatbotModal: React.FC<ChatbotModalProps> = ({ isOpen, onClose }) =
 
       if (!res.ok) {
         throw new Error(data.error || 'Failed to get answer from assistant.');
+      }
+
+      // Keep the badge in sync with the server's real count.
+      if (typeof data.messagesRemaining === 'number') {
+        setUsage(syncChatUsageFromServer(data.messagesRemaining, data.resetHours));
       }
 
       const botMsg: Message = {
@@ -174,7 +172,6 @@ export const ChatbotModal: React.FC<ChatbotModalProps> = ({ isOpen, onClose }) =
       ]);
     } finally {
       setLoading(false);
-      setUsage(getChatUsage());
     }
   };
 
