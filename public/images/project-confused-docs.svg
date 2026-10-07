@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" fill="none">
+  <rect width="1200" height="675" fill="#0D121A"/>
+  <rect x="40" y="40" width="1120" height="595" rx="20" fill="#F5F5F4" stroke="#1B2633" stroke-width="2"/>
+  <circle cx="100" cy="90" r="8" fill="#EF4444"/>
+  <circle cx="130" cy="90" r="8" fill="#60A5FA"/>
+  <circle cx="160" cy="90" r="8" fill="#3B82F6"/>
+  <text x="960" y="95" fill="#6B7280" font-family="sans-serif" font-size="12" text-anchor="end">Deploy</text>
+
+  <text x="600" y="230" fill="#6B7280" font-family="sans-serif" font-size="13" text-anchor="middle">Orchestrated by Tharun</text>
+  <text x="600" y="290" fill="#111827" font-family="sans-serif" font-size="46" font-weight="800" text-anchor="middle">ToolDocs2MD</text>
+  <text x="600" y="330" fill="#374151" font-family="sans-serif" font-size="15" text-anchor="middle">Turn any official documentation link into a structured, readable Markdown handbook</text>
+  <text x="600" y="356" fill="#9CA3AF" font-family="sans-serif" font-size="12" text-anchor="middle">This tool can make mistakes.</text>
+
+  <rect x="300" y="390" width="600" height="46" rx="8" fill="#FFFFFF" stroke="#E5E7EB"/>
+  <circle cx="325" cy="413" r="7" fill="none" stroke="#9CA3AF" stroke-width="2"/>
+  <text x="345" y="418" fill="#6B7280" font-family="sans-serif" font-size="13">Building your handbook…</text>
+
+  <rect x="300" y="444" width="600" height="46" rx="8" fill="#FFFFFF" stroke="#E5E7EB"/>
+  <text x="322" y="472" fill="#6B7280" font-family="sans-serif" font-size="13">Validating the URL…</text>
+
+  <rect x="300" y="510" width="600" height="52" rx="10" fill="#FFFFFF" stroke="#3B82F6" stroke-width="2"/>
+  <text x="322" y="542" fill="#9CA3AF" font-family="sans-serif" font-size="13">Paste a documentation link and press Enter…</text>
+  <rect x="852" y="521" width="30" height="30" rx="8" fill="#F3F4F6"/>
+  <text x="867" y="541" fill="#6B7280" font-family="sans-serif" font-size="13" text-anchor="middle">↑</text>
+</svg>

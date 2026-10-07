@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" fill="none">
+  <rect width="1200" height="675" fill="#0D121A"/>
+  <rect x="40" y="40" width="1120" height="595" rx="20" fill="#0B0F14" stroke="#1B2633" stroke-width="2"/>
+  <circle cx="100" cy="90" r="8" fill="#EF4444"/>
+  <circle cx="130" cy="90" r="8" fill="#60A5FA"/>
+  <circle cx="160" cy="90" r="8" fill="#3B82F6"/>
+  <text x="200" y="95" fill="#E2E8F0" font-family="sans-serif" font-size="14" font-weight="600">Agentic RAG System — MultiPDF Agentic Chat</text>
+
+  <!-- Sidebar -->
+  <rect x="80" y="140" width="230" height="450" rx="14" fill="#101720" stroke="#1B2633"/>
+  <text x="104" y="172" fill="#64748B" font-family="sans-serif" font-size="11">ORCHESTRATED BY THARUN</text>
+  <text x="104" y="200" fill="#FFFFFF" font-family="sans-serif" font-size="16" font-weight="700">MultiPDF Agentic Chat</text>
+  <text x="104" y="222" fill="#94A3B8" font-family="sans-serif" font-size="11">Agentic RAG bot with long-term</text>
+  <text x="104" y="238" fill="#94A3B8" font-family="sans-serif" font-size="11">memory for each chat</text>
+
+  <rect x="104" y="258" width="182" height="34" rx="8" fill="#3B82F6"/>
+  <text x="118" y="280" fill="#070A10" font-family="sans-serif" font-size="12" font-weight="700">Set: Test-1</text>
+
+  <text x="104" y="330" fill="#64748B" font-family="sans-serif" font-size="11">NAME A NEW SET…</text>
+  <rect x="104" y="342" width="182" height="30" rx="8" fill="#1B2633"/>
+  <text x="118" y="362" fill="#94A3B8" font-family="sans-serif" font-size="12">+ New set</text>
+
+  <!-- Chat column -->
+  <rect x="330" y="140" width="490" height="450" rx="14" fill="#101720" stroke="#1B2633"/>
+  <rect x="354" y="164" width="260" height="34" rx="10" fill="#3B82F6"/>
+  <text x="370" y="186" fill="#070A10" font-family="sans-serif" font-size="13" font-weight="600">Hello</text>
+
+  <rect x="354" y="212" width="420" height="66" rx="10" fill="#1B2633"/>
+  <text x="370" y="232" fill="#E5ECF6" font-family="sans-serif" font-size="12" font-weight="700">Agentic Bot, by Tharun</text>
+  <text x="370" y="250" fill="#94A3B8" font-family="sans-serif" font-size="11">I can retrieve answers from your</text>
+  <text x="370" y="264" fill="#94A3B8" font-family="sans-serif" font-size="11">uploaded documents or our chat history.</text>
+
+  <rect x="354" y="292" width="300" height="34" rx="10" fill="#3B82F6"/>
+  <text x="370" y="314" fill="#070A10" font-family="sans-serif" font-size="12" font-weight="600">Summarize the document I gave</text>
+
+  <rect x="354" y="340" width="420" height="150" rx="10" fill="#1B2633"/>
+  <text x="370" y="362" fill="#E5ECF6" font-family="sans-serif" font-size="12">Here is a short summary, with key points</text>
+  <text x="370" y="380" fill="#E5ECF6" font-family="sans-serif" font-size="12">pulled directly from your uploaded file.</text>
+
+  <rect x="354" y="560" width="420" height="12" rx="6" fill="#0B0F14" stroke="#1E2A3C"/>
+
+  <!-- Documents panel -->
+  <rect x="850" y="140" width="230" height="450" rx="14" fill="#101720" stroke="#1B2633"/>
+  <text x="874" y="172" fill="#94A3B8" font-family="sans-serif" font-size="12" font-weight="600">Documents</text>
+  <text x="874" y="192" fill="#64748B" font-family="sans-serif" font-size="11">20 / 150 chunks used</text>
+  <rect x="874" y="200" width="182" height="6" rx="3" fill="#1B2633"/>
+  <rect x="874" y="200" width="24" height="6" rx="3" fill="#3B82F6"/>
+
+  <text x="874" y="238" fill="#94A3B8" font-family="sans-serif" font-size="11">ADD A DOCUMENT</text>
+  <rect x="874" y="250" width="182" height="34" rx="8" fill="#1B2633"/>
+  <text x="892" y="272" fill="#E5ECF6" font-family="sans-serif" font-size="12">↑ Upload</text>
+
+  <rect x="874" y="310" width="182" height="46" rx="8" fill="#0B0F14" stroke="#3B82F6"/>
+  <text x="888" y="330" fill="#E5ECF6" font-family="sans-serif" font-size="12" font-weight="600">main.pdf</text>
+  <text x="888" y="346" fill="#64748B" font-family="sans-serif" font-size="10">20 chunks</text>
+</svg>

@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" fill="none">
+  <rect width="1200" height="675" fill="#0D121A"/>
+  <defs>
+    <linearGradient id="g2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2563EB" stop-opacity="0.15"/>
+      <stop offset="100%" stop-color="#3B82F6" stop-opacity="0.05"/>
+    </linearGradient>
+  </defs>
+  <rect x="40" y="40" width="1120" height="595" rx="20" fill="url(#g2)" stroke="#1B2633" stroke-width="2"/>
+  <circle cx="100" cy="90" r="8" fill="#EF4444"/>
+  <circle cx="130" cy="90" r="8" fill="#60A5FA"/>
+  <circle cx="160" cy="90" r="8" fill="#3B82F6"/>
+  <text x="200" y="95" fill="#3B82F6" font-family="monospace" font-size="14">tharun@server:~/dataset-generator$ python run.py --schema e-commerce --samples 50000</text>
+  
+  <rect x="80" y="140" width="1040" height="450" rx="14" fill="#090D12" stroke="#1B2633"/>
+  <text x="120" y="190" fill="#38BDF8" font-family="monospace" font-size="14">[INFO] Parsing schema validation rules &amp; distribution constraints...</text>
+  <text x="120" y="225" fill="#4ADE80" font-family="monospace" font-size="14">[SUCCESS] Loaded 12 conditional constraint hooks (Pydantic v2)</text>
+  <text x="120" y="260" fill="#E2E8F0" font-family="monospace" font-size="14">[GENERATING] Batch 1/5: 10,000 synthetic transaction records [====================] 100%</text>
+  <text x="120" y="295" fill="#E2E8F0" font-family="monospace" font-size="14">[GENERATING] Batch 2/5: 10,000 synthetic transaction records [====================] 100%</text>
+  <text x="120" y="330" fill="#E2E8F0" font-family="monospace" font-size="14">[GENERATING] Batch 3/5: 10,000 synthetic transaction records [====================] 100%</text>
+  <text x="120" y="365" fill="#E2E8F0" font-family="monospace" font-size="14">[GENERATING] Batch 4/5: 10,000 synthetic transaction records [====================] 100%</text>
+  <text x="120" y="400" fill="#E2E8F0" font-family="monospace" font-size="14">[GENERATING] Batch 5/5: 10,000 synthetic transaction records [====================] 100%</text>
+  <text x="120" y="445" fill="#60A5FA" font-family="monospace" font-size="14">[STATS] Skew check: Normal Gaussian (μ=142.5, σ=24.1). Zero null violations.</text>
+  <text x="120" y="480" fill="#3B82F6" font-family="monospace" font-size="14">[EXPORTED] 50,000 clean synthetic rows saved to ./output/dataset_validated.parquet (2.4MB)</text>
+  <text x="120" y="520" fill="#94A3B8" font-family="monospace" font-size="14">Execution time: 4.82s • Memory peak: 114MB • Automated unit checks: 32/32 PASSED</text>
+</svg>

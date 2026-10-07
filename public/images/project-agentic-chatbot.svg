@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" fill="none">
+  <rect width="1200" height="675" fill="#0D121A"/>
+  <rect x="40" y="40" width="1120" height="595" rx="20" fill="#0B0F14" stroke="#1B2633" stroke-width="2"/>
+  <circle cx="100" cy="90" r="8" fill="#EF4444"/>
+  <circle cx="130" cy="90" r="8" fill="#60A5FA"/>
+  <circle cx="160" cy="90" r="8" fill="#3B82F6"/>
+  <text x="200" y="95" fill="#E2E8F0" font-family="sans-serif" font-size="14" font-weight="600">n8n Workflow — Agentic Chatbot with Long-Term Memory</text>
+
+  <!-- Node: Telegram Trigger -->
+  <rect x="90" y="220" width="150" height="70" rx="10" fill="#131B24" stroke="#38BDF8" stroke-width="2"/>
+  <text x="108" y="250" fill="#FFFFFF" font-family="sans-serif" font-size="12" font-weight="700">Telegram</text>
+  <text x="108" y="266" fill="#94A3B8" font-family="sans-serif" font-size="11">Trigger</text>
+  <path d="M240 255 L300 255" stroke="#38BDF8" stroke-width="2"/>
+
+  <!-- Node: Route Message -->
+  <rect x="300" y="220" width="150" height="70" rx="10" fill="#131B24" stroke="#38BDF8" stroke-width="2"/>
+  <text x="318" y="250" fill="#FFFFFF" font-family="sans-serif" font-size="12" font-weight="700">Route</text>
+  <text x="318" y="266" fill="#94A3B8" font-family="sans-serif" font-size="11">Message</text>
+  <path d="M450 255 L510 255" stroke="#3B82F6" stroke-width="2"/>
+
+  <!-- Node: Get Recent Messages -->
+  <rect x="510" y="180" width="160" height="70" rx="10" fill="#131B24" stroke="#3B82F6" stroke-width="2"/>
+  <text x="528" y="210" fill="#FFFFFF" font-family="sans-serif" font-size="12" font-weight="700">Get Recent</text>
+  <text x="528" y="226" fill="#94A3B8" font-family="sans-serif" font-size="11">Messages</text>
+  <path d="M670 215 L720 260" stroke="#3B82F6" stroke-width="2"/>
+
+  <!-- Node: AI Agent (central) -->
+  <rect x="720" y="200" width="200" height="180" rx="14" fill="#131B24" stroke="#3B82F6" stroke-width="2.5"/>
+  <text x="744" y="230" fill="#FFFFFF" font-family="sans-serif" font-size="14" font-weight="700">AI Agent</text>
+  <rect x="744" y="248" width="150" height="26" rx="6" fill="#0B0F14" stroke="#1E2A3C"/>
+  <text x="754" y="265" fill="#CBD5E1" font-family="sans-serif" font-size="11">Model: GPT-OSS-120B</text>
+  <rect x="744" y="282" width="150" height="26" rx="6" fill="#0B0F14" stroke="#1E2A3C"/>
+  <text x="754" y="299" fill="#CBD5E1" font-family="sans-serif" font-size="11">Model: Gemini Flash-3</text>
+  <rect x="744" y="316" width="150" height="26" rx="6" fill="#0B0F14" stroke="#1E2A3C"/>
+  <text x="754" y="333" fill="#CBD5E1" font-family="sans-serif" font-size="11">Tool: Tavily Web Search</text>
+  <rect x="744" y="350" width="150" height="26" rx="6" fill="#0B0F14" stroke="#1E2A3C"/>
+  <text x="754" y="367" fill="#CBD5E1" font-family="sans-serif" font-size="11">Memory: Short + Long Term</text>
+
+  <path d="M920 260 L980 260" stroke="#3B82F6" stroke-width="2"/>
+  <!-- Node: Send Reply -->
+  <rect x="980" y="225" width="150" height="70" rx="10" fill="#131B24" stroke="#38BDF8" stroke-width="2"/>
+  <text x="998" y="255" fill="#FFFFFF" font-family="sans-serif" font-size="12" font-weight="700">Send Reply</text>
+  <text x="998" y="271" fill="#94A3B8" font-family="sans-serif" font-size="11">Telegram</text>
+
+  <path d="M770 380 L770 420" stroke="#A855F7" stroke-width="2"/>
+  <!-- Node: Summarize + store -->
+  <rect x="620" y="420" width="300" height="70" rx="10" fill="#131B24" stroke="#A855F7" stroke-width="2"/>
+  <text x="638" y="450" fill="#FFFFFF" font-family="sans-serif" font-size="12" font-weight="700">Summarize Conversation</text>
+  <text x="638" y="466" fill="#94A3B8" font-family="sans-serif" font-size="11">→ upsert to long-term memory, then trim short-term</text>
+
+  <!-- Info panel -->
+  <rect x="90" y="440" width="490" height="150" rx="12" fill="#131B24" stroke="#1B2633"/>
+  <text x="112" y="470" fill="#3B82F6" font-family="sans-serif" font-size="13" font-weight="700">AI MEMORY ASSISTANT</text>
+  <text x="112" y="495" fill="#CBD5E1" font-family="sans-serif" font-size="12">Two layers of memory: short-term conversation history</text>
+  <text x="112" y="513" fill="#CBD5E1" font-family="sans-serif" font-size="12">(PostgreSQL) and long-term memory (Pinecone).</text>
+  <text x="112" y="536" fill="#CBD5E1" font-family="sans-serif" font-size="12">When the short-term window fills up, it is summarized</text>
+  <text x="112" y="554" fill="#CBD5E1" font-family="sans-serif" font-size="12">into long-term memory. Send /reset to start fresh.</text>
+</svg>

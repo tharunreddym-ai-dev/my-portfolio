@@ -1,0 +1,45 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: 'Manrope', system-ui, -apple-system, sans-serif;
+  --font-heading: 'Fraunces', system-ui, -apple-system, sans-serif;
+  --color-obsidian-950: #05070B;
+  --color-obsidian-900: #070A10;
+  --color-obsidian-850: #0D131D;
+  --color-obsidian-800: #131B28;
+  --color-obsidian-700: #1E2A3C;
+  --color-obsidian-600: #2A3A52;
+  --color-brand-accent: #3B82F6;
+  --color-brand-deep: #1E40AF;
+  --color-brand-300: #93C5FD;
+  --color-brand-400: #60A5FA;
+  --color-brand-500: #3B82F6;
+  --color-brand-600: #2563EB;
+  --color-brand-700: #1D4ED8;
+  --color-brand-950: #0A1530;
+}
+
+body {
+  font-family: 'Manrope', system-ui, -apple-system, sans-serif;
+  background-color: #070A10;
+  color: #E5ECF6;
+}
+
+h1, h2, h3, h4, h5, h6, .font-heading {
+  font-family: 'Fraunces', system-ui, -apple-system, sans-serif;
+}
+
+/* Clean Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #070A10;
+}
+::-webkit-scrollbar-thumb {
+  background: #1E2A3C;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #3B82F6;
+}
