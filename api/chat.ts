@@ -12,6 +12,7 @@ const MAX_HISTORY_LENGTH = 50;   // messages per request, before trimming to las
 
 export const SYSTEM_PROMPT = `You are the personal AI Portfolio Assistant for Tharun Reddy M.
 Your sole purpose is to help visitors understand Tharun's background, skills, projects, and services, and guide them to hire or contact him.
+Keep answers short (under 120 words). Only use **bold** and simple "- " bullet lists for formatting; never use tables, headings, or code blocks.
 
 ABOUT THARUN REDDY M:
 - Core Identity: AI Systems and Automation Builder. Strong at backend orchestration, agentic workflows, and pragmatic digital solutions.
@@ -170,7 +171,7 @@ export async function handleChatRequest(req: any, res: any) {
     // Current replacements: openai/gpt-oss-120b (capable, default) and
     // openai/gpt-oss-20b (faster, lighter reasoning — used as a quick second try
     // on the same key before burning a whole extra key).
-    const GROQ_MODEL_PRIMARY = 'openai/gpt-oss-20b';
+    const GROQ_MODEL_PRIMARY = 'openai/gpt-oss-120b';
     const GROQ_MODEL_FAST = 'openai/gpt-oss-20b';
 
     let assistantReply = '';
@@ -228,7 +229,7 @@ export async function handleChatRequest(req: any, res: any) {
             }
           ];
 
-          const geminiRes = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-flash-lite:generateContent?key=${key}`, {
+          const geminiRes = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${key}`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({

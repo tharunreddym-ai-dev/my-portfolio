@@ -8,6 +8,56 @@ interface Message {
   timestamp?: string;
 }
 
+// Renders the small subset of markdown the AI uses (**bold** and "- " bullets)
+// as real formatting, safely (no HTML injection), so visitors never see raw asterisks.
+function renderInline(line: string, keyBase: string) {
+  const parts = line.split(/(\*\*[^*]+\*\*)/g);
+  return parts.map((part, i) =>
+    part.startsWith('**') && part.endsWith('**') && part.length > 4 ? (
+      <strong key={`${keyBase}-${i}`} className="font-semibold text-white">
+        {part.slice(2, -2)}
+      </strong>
+    ) : (
+      <React.Fragment key={`${keyBase}-${i}`}>{part.replace(/\*\*/g, '')}</React.Fragment>
+    )
+  );
+}
+
+const FormattedText: React.FC<{ text: string }> = ({ text }) => {
+  const lines = text.replace(/\r/g, '').split('\n');
+  const blocks: React.ReactNode[] = [];
+  let bullets: string[] = [];
+
+  const flush = (key: string) => {
+    if (bullets.length) {
+      blocks.push(
+        <ul key={key} className="list-disc pl-5 space-y-1">
+          {bullets.map((b, i) => (
+            <li key={i}>{renderInline(b, `${key}-${i}`)}</li>
+          ))}
+        </ul>
+      );
+      bullets = [];
+    }
+  };
+
+  lines.forEach((raw, idx) => {
+    const line = raw.trim();
+    const bullet = line.match(/^(?:[-*•]|\d+[.)])\s+(.*)$/);
+    if (bullet) {
+      bullets.push(bullet[1]);
+      return;
+    }
+    flush(`ul-${idx}`);
+    if (!line) return;
+    const heading = line.replace(/^#{1,6}\s+/, '');
+    blocks.push(<p key={`p-${idx}`}>{renderInline(heading, `p-${idx}`)}</p>);
+  });
+  flush('ul-end');
+
+  return <div className="space-y-2 break-words">{blocks}</div>;
+};
+
 interface ChatbotModalProps {
   isOpen: boolean;
   onClose: () => void;
@@ -202,7 +252,7 @@ export const ChatbotModal: React.FC<ChatbotModalProps> = ({ isOpen, onClose }) =
                       : 'bg-[#0D131D] border border-[#1E2A3C] text-slate-200 rounded-bl-xs'
                   }`}
                 >
-                  <p className="whitespace-pre-wrap">{msg.content}</p>
+                  <FormattedText text={msg.content} />
                 </div>
 
                 {/* Timestamp only (AI provider names are kept private) */}

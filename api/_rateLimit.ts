@@ -97,9 +97,17 @@ export function consumeUsage(key: string, windowMs: number): { count: number; ms
  * can't safely assume Origin is always present without risking false blocks.
  */
 export function isAllowedOrigin(req: any): boolean {
-  const allowed = process.env.ALLOWED_ORIGIN;
-  if (!allowed) return true;
+  // ALLOWED_ORIGIN can hold one URL or several separated by commas, e.g.
+  // "https://tharunreddym.vercel.app,https://my-portfolio-kappa-lovat-35.vercel.app".
+  // Quotes, spaces, trailing slashes and letter case are ignored.
+  const normalize = (v: string) =>
+    v.trim().replace(/^['"]|['"]$/g, '').trim().replace(/\/+$/, '').toLowerCase();
+  const allowed = (process.env.ALLOWED_ORIGIN || '')
+    .split(',')
+    .map(normalize)
+    .filter(Boolean);
+  if (allowed.length === 0) return true;
   const origin = req.headers?.origin;
   if (!origin) return true;
-  return origin === allowed;
+  return allowed.includes(normalize(String(origin)));
 }
