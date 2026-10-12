@@ -124,7 +124,7 @@ export const Contact: React.FC = () => {
                       href="mailto:tharunreddymofficial@gmail.com"
                       className="text-sm font-medium text-white hover:text-brand-400 transition-colors"
                     >
-                      tharunreddymofficialg@gmail.com
+                      tharunreddymofficial@gmail.com
                     </a>
                   </div>
                 </div>
