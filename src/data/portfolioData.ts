@@ -77,9 +77,9 @@ export const portfolioData: PortfolioData = {
     {
       platform: "Instagram",
       label: "Instagram",
-      url: "https://www.instagram.com/techh_nerdd/",
+      url: "https://www.instagram.com/tharunwithai/",
       icon: "Instagram",
-      handle: "@techh_nerdd",
+      handle: "@tharunwithai",
       note: "Quick questions & small business inquiries",
     },
     {

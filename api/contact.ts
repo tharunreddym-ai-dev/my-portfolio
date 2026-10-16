@@ -268,7 +268,7 @@ export async function handleContactRequest(req: any, res: any) {
       (telegramStatus === 'failed' || email_.status === 'failed')
     ) {
       res.status(502).json({
-        error: 'Sorry, your message could not be delivered right now. Please email tharunreddymofficialg@gmail.com directly.',
+        error: 'Sorry, your message could not be delivered right now. Please email tharunreddymofficial@gmail.com directly.',
       });
       return;
     }
